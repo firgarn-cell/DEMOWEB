@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Новая заявка — Корочки.есть{% endblock %}
+{% block content %}
+<section class="auth-wide">
+  <h1>Формирование заявки</h1>
+  <form method="post" id="app-form" novalidate>
+    <label>Наименование курса
+      <select name="course_name" required>
+        <option value="">— выберите курс —</option>
+        {% for c in courses %}
+          <option value="{{ c }}" {% if form.course_name == c %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+      <span class="field-error {% if errors.course_name %}show{% endif %}">{{ errors.course_name or '' }}</span>
+    </label>
+    <label>Желаемая дата начала обучения (ДД.ММ.ГГГГ)
+      <input name="start_date" id="start_date" value="{{ form.start_date }}"
+             placeholder="15.09.2026"
+             pattern="(0[1-9]|[12]\d|3[01])\.(0[1-9]|1[0-2])\.\d{4}" required />
+      <span class="field-error {% if errors.start_date %}show{% endif %}">{{ errors.start_date or 'Формат ДД.ММ.ГГГГ' }}</span>
+    </label>
+    <fieldset class="pay-fieldset">
+      <legend>Способ оплаты</legend>
+      <label class="radio">
+        <input type="radio" name="payment_method" value="cash"
+               {% if form.payment_method == 'cash' %}checked{% endif %} /> Наличными
+      </label>
+      <label class="radio">
+        <input type="radio" name="payment_method" value="phone_transfer"
+               {% if form.payment_method == 'phone_transfer' %}checked{% endif %} /> Переводом по номеру телефона
+      </label>
+      <span class="field-error {% if errors.payment_method %}show{% endif %}">{{ errors.payment_method or '' }}</span>
+    </fieldset>
+    <button class="btn" type="submit">Отправить</button>
+    <a class="btn btn-ghost" href="{{ url_for('my_applications') }}">Отмена</a>
+  </form>
+</section>
+{% endblock %}

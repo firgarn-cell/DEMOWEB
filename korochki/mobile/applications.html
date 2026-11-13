@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=390" />
+  <title>Мобильный макет — заявки</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+  <style>body{background:#cfd8e6}.mobile-nav{display:flex;gap:8px;margin-bottom:12px;font-size:.85rem;flex-wrap:wrap}</style>
+</head>
+<body>
+  <div class="mobile-frame">
+    <div class="mobile-nav">
+      <a href="login.html">Вход</a>
+      <a href="register.html">Регистрация</a>
+      <a href="applications.html">Заявки</a>
+      <a href="new_application.html">Новая</a>
+      <a href="admin.html">Админ</a>
+    </div>
+    <h1>Мои заявки</h1>
+    <article class="app-card">
+      <header><strong>#12</strong><span class="pill">Новая</span></header>
+      <p>Основы веб-дизайна</p>
+      <p class="muted">Старт: 15.09.2026</p>
+    </article>
+    <article class="app-card">
+      <header><strong>#9</strong><span class="pill">Обучение завершено</span></header>
+      <p>Основы проектирования баз данных</p>
+      <label>Отзыв<textarea rows="3"></textarea></label>
+      <button class="btn btn-secondary" type="button">Отправить отзыв</button>
+    </article>
+  </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=390" />
+  <title>Мобильный макет — новая заявка</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+  <style>body{background:#cfd8e6}.mobile-nav{display:flex;gap:8px;margin-bottom:12px;font-size:.85rem;flex-wrap:wrap}</style>
+</head>
+<body>
+  <div class="mobile-frame">
+    <div class="mobile-nav">
+      <a href="login.html">Вход</a>
+      <a href="register.html">Регистрация</a>
+      <a href="applications.html">Заявки</a>
+      <a href="new_application.html">Новая</a>
+      <a href="admin.html">Админ</a>
+    </div>
+    <h1>Новая заявка</h1>
+    <label>Курс
+      <select>
+        <option>Основы алгоритмизации и программирования</option>
+        <option>Основы веб-дизайна</option>
+        <option>Основы проектирования баз данных</option>
+      </select>
+    </label>
+    <label>Дата начала<input placeholder="ДД.ММ.ГГГГ" /></label>
+    <label class="radio"><input type="radio" name="p" checked /> Наличными</label>
+    <label class="radio"><input type="radio" name="p" /> Переводом по номеру телефона</label>
+    <button class="btn" type="button">Отправить</button>
+  </div>
+</body>
+</html>

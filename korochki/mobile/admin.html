@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=390" />
+  <title>Мобильный макет — админ</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+  <style>body{background:#cfd8e6}.mobile-nav{display:flex;gap:8px;margin-bottom:12px;font-size:.85rem;flex-wrap:wrap}</style>
+</head>
+<body>
+  <div class="mobile-frame">
+    <div class="mobile-nav">
+      <a href="login.html">Вход</a>
+      <a href="register.html">Регистрация</a>
+      <a href="applications.html">Заявки</a>
+      <a href="new_application.html">Новая</a>
+      <a href="admin.html">Админ</a>
+    </div>
+    <h1>Админ-панель</h1>
+    <label>Фильтр
+      <select>
+        <option>Все</option>
+        <option>Новая</option>
+        <option>Идет обучение</option>
+        <option>Обучение завершено</option>
+      </select>
+    </label>
+    <article class="app-card">
+      <header><strong>#12</strong><span class="pill">Новая</span></header>
+      <p>Иванов Иван · Основы веб-дизайна</p>
+      <select>
+        <option>Новая</option>
+        <option>Идет обучение</option>
+        <option>Обучение завершено</option>
+      </select>
+      <button class="btn btn-sm" type="button">Сохранить</button>
+    </article>
+  </div>
+</body>
+</html>
