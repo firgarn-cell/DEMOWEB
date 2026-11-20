@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Регистрация — гражданам.егрн{% endblock %}
+{% block content %}
+<section class="auth-wide">
+  <h1>Регистрация</h1>
+  <p class="muted">Все поля обязательны для заполнения</p>
+  <form method="post" id="reg-form" novalidate>
+    <label>Логин
+      <input name="login" id="login" value="{{ form.login }}"
+             pattern="[A-Za-z0-9]{6,}" title="Латиница и цифры, не менее 6 символов" required />
+      <span class="field-error {% if errors.login %}show{% endif %}">{{ errors.login or 'Латиница и цифры, ≥ 6' }}</span>
+    </label>
+    <label>Пароль
+      <input type="password" name="password" id="password" minlength="8" required />
+      <span class="field-error {% if errors.password %}show{% endif %}">{{ errors.password or 'Минимум 8 символов' }}</span>
+    </label>
+    <label>ФИО
+      <input name="full_name" id="full_name" value="{{ form.full_name }}"
+             pattern="[А-Яа-яЁё]+(\s[А-Яа-яЁё]+)*" required />
+      <span class="field-error {% if errors.full_name %}show{% endif %}">{{ errors.full_name or 'Кириллица и пробелы' }}</span>
+    </label>
+    <label>Телефон
+      <input name="phone" id="phone" value="{{ form.phone }}"
+             placeholder="8(999)123-45-67"
+             pattern="8\(\d{3}\)\d{3}-\d{2}-\d{2}" required />
+      <span class="field-error {% if errors.phone %}show{% endif %}">{{ errors.phone or 'Формат: 8(XXX)XXX-XX-XX' }}</span>
+    </label>
+    <label>Email
+      <input type="email" name="email" id="email" value="{{ form.email }}" required />
+      <span class="field-error {% if errors.email %}show{% endif %}">{{ errors.email or 'Формат электронной почты' }}</span>
+    </label>
+    <button class="btn" type="submit">Зарегистрироваться</button>
+    <p class="muted" style="margin-top:8px">Кнопка создаёт пользователя в БД (по ТЗ также допустимо «Создать пользователя»).</p>
+  </form>
+  <p class="switch-link"><a href="{{ url_for('login') }}">Уже есть аккаунт? Войти</a></p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/validate.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Мои заявки — гражданам.егрн{% endblock %}
+{% block content %}
+<section>
+  <div class="page-head">
+    <h1>Мои заявки</h1>
+    <a class="btn" href="{{ url_for('new_application') }}">Новая заявка</a>
+  </div>
+
+  {% if not applications %}
+    <div class="empty">Заявок пока нет. Создайте первую.</div>
+  {% else %}
+    <div class="cards">
+      {% for a in applications %}
+        <article class="app-card status-{{ a.status|replace(' ', '-') }}">
+          <header>
+            <strong>#{{ a.id }}</strong>
+            <span class="pill">{{ a.status }}</span>
+          </header>
+          <p><b>Услуга:</b> {{ a.service_name }}</p>
+          <p><b>Желаемая дата:</b> {{ a.request_date|dmy }}</p>
+          <p><b>Оплата:</b> {{ a.payment_method|pay }}</p>
+          <p class="muted">Создана: {{ a.created_at }}</p>
+
+          {% if a.status == 'Услуга оказана' %}
+            {% if a.review_text %}
+              <div class="review-box"><b>Ваш отзыв:</b> {{ a.review_text }}</div>
+            {% else %}
+              <form method="post" action="{{ url_for('leave_review', app_id=a.id) }}" class="review-form">
+                <label>Отзыв о качестве услуги
+                  <textarea name="review_text" rows="3" required placeholder="Оставьте отзыв…"></textarea>
+                </label>
+                <button class="btn btn-secondary" type="submit">Отправить отзыв</button>
+              </form>
+            {% endif %}
+          {% else %}
+            <p class="hint">Отзыв будет доступен после статуса «Услуга оказана».</p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Пробное демо «гражданам.егрн» — комплект DEMOWEB</title>
+  <style>
+    :root {
+      --bg: #eef4f1; --card: #fff; --ink: #12241c; --muted: #5a6e64;
+      --line: #d2e2d9; --accent: #0f4c81; --accent-2: #2e8b57;
+      --shadow: 0 10px 30px rgba(18,36,28,.08); --radius: 16px;
+      --sans: "Segoe UI", Candara, "Trebuchet MS", sans-serif;
+      --mono: Consolas, "Courier New", monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: var(--sans); color: var(--ink); line-height: 1.55;
+      background:
+        radial-gradient(1000px 420px at 8% -8%, #d6e8f7, transparent 55%),
+        radial-gradient(800px 380px at 100% 0%, #d8f0e4, transparent 50%),
+        var(--bg);
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 28px 18px 72px; }
+    header.hero {
+      padding: 28px; border-radius: 22px; color: #fff; box-shadow: var(--shadow);
+      background: linear-gradient(135deg, #0b3a5c, #0f4c81 65%, #2e8b57);
+    }
+    header.hero h1 { margin: 0 0 8px; font-size: clamp(1.5rem, 3vw, 2rem); }
+    header.hero p { margin: 0; opacity: .93; max-width: 58ch; }
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 18px 20px; margin-top: 16px; box-shadow: var(--shadow);
+    }
+    h2 { margin: 0 0 8px; font-size: 1.2rem; color: var(--accent); }
+    code, pre { font-family: var(--mono); font-size: .9rem; }
+    pre {
+      background: #0f2433; color: #e8f4ff; padding: 14px; border-radius: 12px;
+      overflow-x: auto;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    th, td { border-bottom: 1px solid var(--line); padding: 8px; text-align: left; }
+    th { background: #eaf3ee; }
+    .muted { color: var(--muted); }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>гражданам.егрн — пробное демо</h1>
+      <p>Комплект в репозитории DEMOWEB по паттерну портала «Корочки.есть» (Flask + SQLite + слайдер + мобильные макеты 390×844).</p>
+    </header>
+
+    <section class="card">
+      <h2>Запуск</h2>
+      <pre>cd grazhdanam-egrn
+pip install -r requirements.txt
+python app.py
+# → http://127.0.0.1:5001</pre>
+      <p class="muted">Админ: <code>Admin</code> / <code>EgrnNET</code>. Пользователей регистрируйте сами.</p>
+    </section>
+
+    <section class="card">
+      <h2>Сценарий показа</h2>
+      <ol>
+        <li>Открыть вход: слайдер (4 кадра, автосмена 3 с) + форма авторизации.</li>
+        <li>Зарегистрировать пользователя (валидация логина/ФИО/телефона/email).</li>
+        <li>Создать заявку на выписку из ЕГРН, выбрать оплату.</li>
+        <li>Войти как Admin → сменить статус на «В обработке», затем «Услуга оказана».</li>
+        <li>Пользователь оставляет отзыв; показать мобильные макеты в <code>mobile/</code>.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Отличия от «Корочки.есть»</h2>
+      <table>
+        <thead><tr><th></th><th>korochki</th><th>гражданам.егрн</th></tr></thead>
+        <tbody>
+          <tr><td>Папка</td><td><code>korochki/</code></td><td><code>grazhdanam-egrn/</code></td></tr>
+          <tr><td>Порт</td><td>5000</td><td>5001</td></tr>
+          <tr><td>Сущность</td><td>курс ДПО</td><td>услуга / выписка ЕГРН</td></tr>
+          <tr><td>Статусы</td><td>обучение</td><td>Новая → В обработке → Услуга оказана</td></tr>
+          <tr><td>Админ-пароль</td><td>KorokNET</td><td>EgrnNET</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Файлы комплекта</h2>
+      <pre>grazhdanam-egrn/
+  app.py, requirements.txt, run.bat, README.md
+  db/schema.sql
+  templates/  (base, login, register, applications, new_application, admin)
+  static/css|js|media
+  mobile/     (5 HTML-макетов 390×844)
+Решение_ДЭ_гражданам_егрн.html  ← этот гайд</pre>
+    </section>
+  </div>
+</body>
+</html>
