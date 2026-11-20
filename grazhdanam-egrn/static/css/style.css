@@ -157,8 +157,13 @@ input:focus, select:focus, textarea:focus {
   text-decoration: none;
   margin-top: 8px;
 }
-.btn { background: var(--accent); color: #fff; }
-.btn:hover { filter: brightness(1.05); text-decoration: none; }
+.btn { background: var(--accent); color: #fff; transition: transform .15s ease, filter .15s ease; }
+.btn:hover { filter: brightness(1.05); text-decoration: none; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+input, select, textarea { transition: border-color .15s ease, box-shadow .15s ease; }
+.app-card { transition: box-shadow .2s ease, transform .2s ease; }
+.app-card:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(18, 36, 28, 0.12); }
+.pill { transition: background .2s ease, color .2s ease; }
 .btn-secondary { background: var(--accent-2); color: #fff; }
 .btn-ghost {
   background: transparent; color: var(--accent);

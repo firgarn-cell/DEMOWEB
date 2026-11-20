@@ -4,10 +4,11 @@
 <section class="hero-block">
   <div class="slider" id="slider" aria-label="Слайдер">
     <div class="slides">
-      <img class="slide active" src="{{ url_for('static', filename='media/slide1.png') }}" alt="Слайд 1" />
-      <img class="slide" src="{{ url_for('static', filename='media/slide2.png') }}" alt="Слайд 2" />
-      <img class="slide" src="{{ url_for('static', filename='media/slide3.png') }}" alt="Слайд 3" />
-      <img class="slide" src="{{ url_for('static', filename='media/slide4.png') }}" alt="Слайд 4" />
+      {# Кадры из приложения КОД 09.02.07-3-2026 (Прил_ОЗ М2), оптимизированные #}
+      <img class="slide active" src="{{ url_for('static', filename='media/kod_slide1.jpg') }}" alt="Слайд 1" />
+      <img class="slide" src="{{ url_for('static', filename='media/kod_slide2.jpg') }}" alt="Слайд 2" />
+      <img class="slide" src="{{ url_for('static', filename='media/kod_slide3.jpg') }}" alt="Слайд 3" />
+      <img class="slide" src="{{ url_for('static', filename='media/kod_slide4.jpg') }}" alt="Слайд 4" />
     </div>
     <button type="button" class="slider-btn prev" data-dir="-1" aria-label="Назад">‹</button>
     <button type="button" class="slider-btn next" data-dir="1" aria-label="Вперёд">›</button>

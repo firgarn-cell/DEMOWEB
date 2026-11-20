@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Пробное демо «гражданам.егрн» — комплект DEMOWEB</title>
+  <title>Решение по КОД 09.02.07-3-2026 — пробное демо «гражданам.егрн»</title>
   <style>
     :root {
       --bg: #eef4f1; --card: #fff; --ink: #12241c; --muted: #5a6e64;
-      --line: #d2e2d9; --accent: #0f4c81; --accent-2: #2e8b57;
+      --line: #d2e2d9; --accent: #0f4c81; --accent-2: #2e8b57; --warn: #c45c16;
       --shadow: 0 10px 30px rgba(18,36,28,.08); --radius: 16px;
       --sans: "Segoe UI", Candara, "Trebuchet MS", sans-serif;
       --mono: Consolas, "Courier New", monospace;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0; font-family: var(--sans); color: var(--ink); line-height: 1.55;
       background:
@@ -20,80 +21,201 @@
         radial-gradient(800px 380px at 100% 0%, #d8f0e4, transparent 50%),
         var(--bg);
     }
-    .wrap { max-width: 960px; margin: 0 auto; padding: 28px 18px 72px; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 28px 18px 80px; }
     header.hero {
       padding: 28px; border-radius: 22px; color: #fff; box-shadow: var(--shadow);
       background: linear-gradient(135deg, #0b3a5c, #0f4c81 65%, #2e8b57);
     }
-    header.hero h1 { margin: 0 0 8px; font-size: clamp(1.5rem, 3vw, 2rem); }
-    header.hero p { margin: 0; opacity: .93; max-width: 58ch; }
-    .card {
+    header.hero h1 { margin: 0 0 8px; font-size: clamp(1.4rem, 3vw, 1.95rem); }
+    header.hero p { margin: 0; opacity: .93; max-width: 65ch; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .badge {
+      background: rgba(255,255,255,.16); padding: 6px 10px; border-radius: 999px; font-size: .85rem;
+    }
+    nav.toc {
+      position: sticky; top: 0; z-index: 10; margin: 16px 0;
+      background: rgba(238,244,241,.94); backdrop-filter: blur(8px);
+      border: 1px solid var(--line); border-radius: 14px; padding: 12px; box-shadow: var(--shadow);
+    }
+    nav.toc .links { display: flex; flex-wrap: wrap; gap: 8px; }
+    nav.toc a {
+      text-decoration: none; background: #fff; border: 1px solid var(--line);
+      padding: 6px 10px; border-radius: 999px; font-size: .85rem; color: var(--accent);
+    }
+    section {
       background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-      padding: 18px 20px; margin-top: 16px; box-shadow: var(--shadow);
+      padding: 18px 20px; margin-top: 14px; box-shadow: var(--shadow);
     }
-    h2 { margin: 0 0 8px; font-size: 1.2rem; color: var(--accent); }
-    code, pre { font-family: var(--mono); font-size: .9rem; }
-    pre {
-      background: #0f2433; color: #e8f4ff; padding: 14px; border-radius: 12px;
-      overflow-x: auto;
-    }
-    table { width: 100%; border-collapse: collapse; font-size: .92rem; }
-    th, td { border-bottom: 1px solid var(--line); padding: 8px; text-align: left; }
-    th { background: #eaf3ee; }
+    h2 { margin: 0 0 10px; color: var(--accent); font-size: 1.25rem; }
+    h3 { margin: 16px 0 8px; font-size: 1.05rem; }
     .muted { color: var(--muted); }
-    a { color: var(--accent); }
+    .callout {
+      border-left: 4px solid var(--accent-2); background: #f3faf6;
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0;
+    }
+    .callout.warn { border-left-color: var(--warn); background: #fff8f0; }
+    table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    th, td { border-bottom: 1px solid var(--line); padding: 8px; text-align: left; vertical-align: top; }
+    th { background: #eaf3ee; }
+    code, pre { font-family: var(--mono); font-size: .88rem; }
+    pre {
+      background: #0f2433; color: #e8f4ff; padding: 14px; border-radius: 12px; overflow-x: auto;
+    }
+    code.inline { background: #eaf3ee; padding: 2px 6px; border-radius: 6px; }
+    ul.checks { list-style: none; padding: 0; }
+    ul.checks li { margin: 6px 0; }
+    img.er { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header class="hero">
-      <h1>гражданам.егрн — пробное демо</h1>
-      <p>Комплект в репозитории DEMOWEB по паттерну портала «Корочки.есть» (Flask + SQLite + слайдер + мобильные макеты 390×844).</p>
+      <h1>гражданам.егрн — решение по КОД 09.02.07-3-2026</h1>
+      <p>
+        Пробный комплект DEMOWEB, собранный по функциональным требованиям
+        PDF «КОД 09.02.07-3-2026 Том 1». В образце задания PDF — портал «Корочки.есть»;
+        демо переносит ту же сетку модулей на бренд «гражданам.егрн».
+      </p>
+      <div class="badges">
+        <span class="badge">ПА · М1 · 25</span>
+        <span class="badge">ГИА БУ · М1+М2 · 50</span>
+        <span class="badge">ГИА ПУ · М1+М2+М3 · 75</span>
+        <span class="badge">папка grazhdanam-egrn/</span>
+      </div>
     </header>
 
-    <section class="card">
-      <h2>Запуск</h2>
-      <pre>cd grazhdanam-egrn
-pip install -r requirements.txt
-python app.py
-# → http://127.0.0.1:5001</pre>
-      <p class="muted">Админ: <code>Admin</code> / <code>EgrnNET</code>. Пользователей регистрируйте сами.</p>
-    </section>
+    <nav class="toc">
+      <strong>Содержание</strong>
+      <div class="links">
+        <a href="#pdf">PDF и маппинг</a>
+        <a href="#run">Запуск</a>
+        <a href="#levels">Модули</a>
+        <a href="#db">БД / ER</a>
+        <a href="#screens">Экраны</a>
+        <a href="#m2">М2 дизайн</a>
+        <a href="#m3">М3</a>
+        <a href="#checklist">Чек-лист</a>
+      </div>
+    </nav>
 
-    <section class="card">
-      <h2>Сценарий показа</h2>
-      <ol>
-        <li>Открыть вход: слайдер (4 кадра, автосмена 3 с) + форма авторизации.</li>
-        <li>Зарегистрировать пользователя (валидация логина/ФИО/телефона/email).</li>
-        <li>Создать заявку на выписку из ЕГРН, выбрать оплату.</li>
-        <li>Войти как Admin → сменить статус на «В обработке», затем «Услуга оказана».</li>
-        <li>Пользователь оставляет отзыв; показать мобильные макеты в <code>mobile/</code>.</li>
-      </ol>
-    </section>
-
-    <section class="card">
-      <h2>Отличия от «Корочки.есть»</h2>
+    <section id="pdf">
+      <h2>1. Что говорит PDF</h2>
+      <p>
+        Файл в checkout: <code class="inline">КОД 09.02.07-3-2026 Том 1.pdf</code>
+        (+ извлечённый текст <code class="inline">_pdf_extract/full_text.txt</code>,
+        приложения <code class="inline">Прил_ОЗ_КОД 09.02.07-3-2026/</code>).
+      </p>
+      <div class="callout warn">
+        <strong>Факт.</strong> В PDF нет названия «гражданам.егрн». Образец задания —
+        «Корочки.есть» (курсы ДПО, Admin/KorokNET, статусы обучения, 3 курса в select).
+        Демо сохраняет требования модулей 1–3 и явно маппит доменные строки
+        (см. <code class="inline">grazhdanam-egrn/docs/requirements-from-pdf.md</code>).
+      </div>
       <table>
-        <thead><tr><th></th><th>korochki</th><th>гражданам.егрн</th></tr></thead>
+        <thead><tr><th>PDF</th><th>гражданам.егрн</th></tr></thead>
         <tbody>
-          <tr><td>Папка</td><td><code>korochki/</code></td><td><code>grazhdanam-egrn/</code></td></tr>
-          <tr><td>Порт</td><td>5000</td><td>5001</td></tr>
-          <tr><td>Сущность</td><td>курс ДПО</td><td>услуга / выписка ЕГРН</td></tr>
-          <tr><td>Статусы</td><td>обучение</td><td>Новая → В обработке → Услуга оказана</td></tr>
-          <tr><td>Админ-пароль</td><td>KorokNET</td><td>EgrnNET</td></tr>
+          <tr><td>Курс ДПО (3 названия)</td><td>3 вида выписки ЕГРН</td></tr>
+          <tr><td>Дата начала обучения ДД.ММ.ГГГГ</td><td>Дата получения ДД.ММ.ГГГГ</td></tr>
+          <tr><td>Новая → Идет обучение → Обучение завершено</td><td>Новая → В обработке → Услуга оказана</td></tr>
+          <tr><td>Admin / KorokNET</td><td>Admin / EgrnNET</td></tr>
+          <tr><td>Отзыв об образовательных услугах</td><td>Отзыв о качестве услуги (после финала)</td></tr>
         </tbody>
       </table>
     </section>
 
-    <section class="card">
-      <h2>Файлы комплекта</h2>
-      <pre>grazhdanam-egrn/
-  app.py, requirements.txt, run.bat, README.md
-  db/schema.sql
-  templates/  (base, login, register, applications, new_application, admin)
-  static/css|js|media
-  mobile/     (5 HTML-макетов 390×844)
-Решение_ДЭ_гражданам_егрн.html  ← этот гайд</pre>
+    <section id="run">
+      <h2>2. Запуск и показ</h2>
+      <pre>cd grazhdanam-egrn
+pip install -r requirements.txt
+python app.py
+# http://127.0.0.1:5001</pre>
+      <p>Админ: <code class="inline">Admin</code> / <code class="inline">EgrnNET</code>. Сценарий: рег → заявка → админ меняет статус → отзыв → <code class="inline">mobile/</code>.</p>
+    </section>
+
+    <section id="levels">
+      <h2>3. Модули (как в Том 1)</h2>
+      <table>
+        <thead><tr><th>Модуль</th><th>Суть из PDF</th><th>Где в комплекте</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>М1 · 1:30</td>
+            <td>БД+ER, рег/логин, заявки, админ, полный стек, Git-коммиты</td>
+            <td><code class="inline">app.py</code>, <code class="inline">db/schema.sql</code>, templates</td>
+          </tr>
+          <tr>
+            <td>М2 · 1:30</td>
+            <td>Дизайн, медиа из приложения, слайдер 4×3с, mobile 390×844, select/дата/фильтр/toast/пагинация</td>
+            <td><code class="inline">static/</code>, <code class="inline">mobile/</code>, kod_slide*.jpg</td>
+          </tr>
+          <tr>
+            <td>М3 · 1:00</td>
+            <td>Доработка БД, адаптив, анимации, качество кода</td>
+            <td>CHECK/FK, CSS micro-anim, Flask stack</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="db">
+      <h2>4. БД и ER</h2>
+      <p class="muted">PDF: «Не забудьте создать ER-диаграмму средствами СУБД». Импортируйте <code class="inline">db/schema.sql</code> в Workbench/DBeaver/pgAdmin и постройте ER там. Ниже — иллюстрация связей комплекта.</p>
+      <img class="er" src="grazhdanam-egrn/db/er-diagram.svg" alt="ER-схема гражданам.егрн" />
+      <h3>Сущности</h3>
+      <ul>
+        <li><strong>users</strong> — логин, хеш пароля, ФИО, телефон, email, role</li>
+        <li><strong>services</strong> — справочник услуг (аналог курсов М2)</li>
+        <li><strong>applications</strong> — заявка, оплата, статус, отзыв, FK на user</li>
+      </ul>
+    </section>
+
+    <section id="screens">
+      <h2>5. Экраны (функционал М1/М2 из PDF)</h2>
+      <ol>
+        <li><strong>Регистрация</strong> — валидация полей как в КОД; запись в БД.</li>
+        <li><strong>Авторизация</strong> — ошибки на форме; ссылка «Еще не зарегистрированы? Регистрация».</li>
+        <li><strong>Мои заявки</strong> — список + отзыв только после финального статуса.</li>
+        <li><strong>Новая заявка</strong> — select услуги, дата ДД.ММ.ГГГГ, оплата нал/перевод, «Отправить».</li>
+        <li><strong>Админ</strong> — все заявки, смена статуса; фильтр, пагинация, toast.</li>
+      </ol>
+    </section>
+
+    <section id="m2">
+      <h2>6. Модуль 2 — дизайн</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Слайдер</h3>
+          <p>4 кадра из приложения КОД (<code class="inline">kod_slide1…4.jpg</code>), автосмена 3 с, кнопки ‹ ›, точки.</p>
+        </div>
+        <div>
+          <h3>Mobile 390×844</h3>
+          <p>Отдельные HTML: login, register, applications, new_application, admin в <code class="inline">mobile/</code>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="m3">
+      <h2>7. Модуль 3</h2>
+      <ul>
+        <li>Схема закрывает М1+М2 (справочник, CHECK статусов, отзыв).</li>
+        <li>Адаптив + микроанимации (toast fade, slider opacity, hover карточек/кнопок).</li>
+        <li>Стек Flask + Werkzeug (хеш паролей, сессии).</li>
+      </ul>
+    </section>
+
+    <section id="checklist">
+      <h2>8. Чек-лист</h2>
+      <p class="muted">Полный список: <code class="inline">grazhdanam-egrn/docs/criteria-checklist.md</code></p>
+      <ul class="checks">
+        <li><label><input type="checkbox" checked disabled /> ER/schema в репозитории</label></li>
+        <li><label><input type="checkbox" checked disabled /> Рег/логин/валидация/роли</label></li>
+        <li><label><input type="checkbox" checked disabled /> Заявки + статусы + отзыв после финала</label></li>
+        <li><label><input type="checkbox" checked disabled /> Админ Admin / EgrnNET</label></li>
+        <li><label><input type="checkbox" checked disabled /> Слайдер 4×3с + media КОД</label></li>
+        <li><label><input type="checkbox" checked disabled /> Mobile 390×844</label></li>
+        <li><label><input type="checkbox" checked disabled /> М3: адаптив + анимации</label></li>
+      </ul>
     </section>
   </div>
 </body>

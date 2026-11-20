@@ -30,7 +30,10 @@
       <span class="field-error {% if errors.email %}show{% endif %}">{{ errors.email or 'Формат электронной почты' }}</span>
     </label>
     <button class="btn" type="submit">Зарегистрироваться</button>
-    <p class="muted" style="margin-top:8px">Кнопка создаёт пользователя в БД (по ТЗ также допустимо «Создать пользователя»).</p>
+    <p class="muted" style="margin-top:8px">
+      М2 КОД: кнопка «Зарегистрироваться». М1 КОД формулирует «Создать пользователя» —
+      обе формулировки означают запись в БД после валидации и проверки уникальности логина.
+    </p>
   </form>
   <p class="switch-link"><a href="{{ url_for('login') }}">Уже есть аккаунт? Войти</a></p>
 </section>
